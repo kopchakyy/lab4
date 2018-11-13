@@ -1,46 +1,48 @@
-#include "pch.h"
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
-void show(int matrix[5][5]) {
-	for (int i = 0; i < 5; i++) {             //Виведення функції
-		for (int j = 0; j < 5; j++) {
-			printf("%d\t", matrix[i][j]);
+
+#define N 5
+#define C columns
+#define S strings
+void show(int matrix[N][N]) {
+	for (int S= 0; S < N; S++) {             
+		for (int C = 0; C < N; C++) {
+			printf("%d\t", matrix[S][C]);
 		}
 		printf("\n");
 	}
 	printf("\n");
 }
-void enter(int matrix[5][5]) {
-	for (int i = 0; i < 5; i++) {             //Введення функції
-		for (int j = 0; j < 5; j++) {
-			printf("a[%d][%d]=", i, j);
-			scanf_s("%d", &matrix[i][j]);
+void enter(int matrix[N][N]) {
+	for (int S = 0; S < N; S++) {             
+		for (int C= 0; C < N; C++) {
+			printf("a[%d][%d]=", S, C);
+			scanf_s("%d", &matrix[S][C]);
 		}
 	}
 }
-
-void sort(int matrix[5][5]) {
-	for (int n = 0; n < 5; n++) {
-		for (int j = 0; j < 5; j++) {
-			for (int i = 1; i < 5; i++) {
-				int temp = matrix[i][j];
-				if (temp > matrix[i - 1][j]) {
-					matrix[i][j] = matrix[i - 1][j];        //Сортуємо матрицю.
-					matrix[i - 1][j] = temp;
+void sort(int matrix[N][N]) {
+	for (int n = 0; n < N; n++) {
+		for (int C = 0; C < N; C++) {
+			for (int S = 1; S < N; S++) {
+				int temp = matrix[S][C];
+				if (temp > matrix[S - 1][C]) {
+					matrix[S][C] = matrix[S - 1][C];       
+					matrix[S - 1][C] = temp;
 				}
 			}
 		}
 	}
 }
-void func(int matrix[5][5]) {                 //Обчислення функій
+void func(int matrix[N][N]) {                
 	double SUMA = 0.0;
 	double product = 1.0;
 	double k = 4.0;
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 5; j++) {
-			if (j > i) {
-				product *= matrix[i][j];
+	for (int S = 0; S < 4; S++) {
+		for (int C = 0; C < N; C++) {
+			if (C > S) {
+				product *= matrix[S][C];
 			}
 		}
 		if (product < 0) {
@@ -48,7 +50,7 @@ void func(int matrix[5][5]) {                 //Обчислення функій
 		}
 		double GAV = pow(product, 1.0 / k);
 		SUMA += GAV;
-		printf("i = %d\t", i);
+		printf("i = %d\t", S);
 		printf("GAV = %lf\n", GAV);
 		k = k - 1.0;
 		product = 1.0;
@@ -62,5 +64,6 @@ int main() {
 	sort(matrix);
 	show(matrix);
 	func(matrix);
+	system("pause");
 	return 0;
 }
